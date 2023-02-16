@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sablon</title>
+    <title>Tablegen</title>
     <link rel="stylesheet" href="bootstrap.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="background-color: rgb(226, 176, 176)">
+    
     <div class="container">
-        <h1>Sablon</h1>
+        <h1>Gyümölcsök</h1>
+        <table class="table table-striped bg-danger"> <!--danger: színek bootstrap-->
+            <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Mennyiség</th>
+                    <th>Ár</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+        
      </div>
      <script src="app.js"></script>
     
