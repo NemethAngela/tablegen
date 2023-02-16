@@ -45,6 +45,8 @@ function generateTdDelete() {       //törlés lesz
     let button = document.createElement('button');
     button.textContent = "Törlés";      // tartalmat adunk neki
     button.classList = "btn btn-warning"    //bootsrtapp-el törtlés gomb állítása
+    button.addEventListener('click', () => {});
+        console.log("működik");
     td.append(button);
     return td;
 
