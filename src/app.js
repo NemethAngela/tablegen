@@ -9,16 +9,16 @@
 */
 
 const gyumolcsok = [    //objektumok meghatározása, kapcsos zárójel közé
-    {name: 'szilva', quantity: 35, price: 8},
-    {name: 'alma', quantity: 45, price: 8.3},
-    {name: 'körte', quantity: 25, price: 9.5},
-    {name: 'barack', quantity: 27, price: 12}
+    {id: 1, name: 'szilva', quantity: 35, price: 8},
+    {id: 2, name: 'alma', quantity: 45, price: 8.3},
+    {id: 3, name: 'körte', quantity: 25, price: 9.5},
+    {id: 4, name: 'barack', quantity: 27, price: 12}
 ];
 
 const tbody = document.querySelector("#tbody");
 
 function generateTbody() {
-    gyumolcsok.forEach((gyumolcs) => {
+    gyumolcsok.forEach((gyumolcs) => {      //itt vannak a gyümölcsök tulajdonságai
         
 
         let tr = document.createElement('tr');
@@ -34,19 +34,32 @@ function generateTbody() {
         tr.append(tdName);
         tr.append(tdQuantity);
         tr.append(tdPrice);
-        tr.append(generateTdDelete());
+        tr.append(generateTdDelete(gyumolcs.id));   //csak az id-at akarom kiszedni
     });
 }
 
 generateTbody();    //fgv. hívása
 
-function generateTdDelete() {       //törlés lesz
+function generateTdDelete(gyumolcsid) {       //törlés lesz,    
     let td = document.createElement('td');   //generálás
     let button = document.createElement('button');
     button.textContent = "Törlés";      // tartalmat adunk neki
     button.classList = "btn btn-warning"    //bootsrtapp-el törtlés gomb állítása
-    button.addEventListener('click', () => {});
-        console.log("működik");
+    button.addEventListener('click', () => {
+        console.log(gyumolcsid);
+        let index = 0;
+        let count = 0;
+        gyumolcsok.forEach((gy) => {
+            if (gy.gyumolcsid == id) {
+                index = count;
+            }
+            count++;
+        });
+        console.log(index);
+        //gyumolcsok.splice(index, 1);
+        tbody.textContent =
+        generateTbody();    //újragenerálja a táblát, a tbodyt
+    }
     td.append(button);
     return td;
 
