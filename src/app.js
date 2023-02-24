@@ -16,6 +16,10 @@ const gyumolcsok = [    //objektumok meghatározása, kapcsos zárójel közé
 ];
 
 const tbody = document.querySelector("#tbody");
+const saveButton = document.querySelector("#saveButton");
+const nameInput = document.querySelector("#name");
+const quantityInput = document.querySelector("#quantity");
+const priceInput = document.querySelector("#price");
 
 function generateTbody() {
     gyumolcsok.forEach((gyumolcs) => {      //itt vannak a gyümölcsök tulajdonságai
@@ -24,7 +28,7 @@ function generateTbody() {
         let tdQuantity = document.createElement('td');
         let tdPrice = document.createElement('td');
 
-        tdName.textContent = gyumolcs.name;     //ezek tulajdonságok textContent-ben
+        tdName.textContent = gyumolcs.name;     //ezek tulajdonságok textContet-ben
         tdQuantity.textContent = gyumolcs.quantity;
         tdPrice.textContent = gyumolcs.price;
 
@@ -38,27 +42,42 @@ function generateTbody() {
 
 generateTbody();    //fgv. hívása
 
-function generateTdDelete(gyumolcsid) {       //törlés lesz,    
-    let td = document.createElement('td');   //generálás
+function generateTdDelete(id) {                             //törlés lesz,    
+    let td = document.createElement('td');                  //generálás
     let button = document.createElement('button');
-    button.textContent = "Törlés";      // tartalmat adunk neki
-    button.classList = "btn btn-warning";    //bootsrtapp-el törtlés gomb állítása
+    button.textContent = "Törlés";                          // tartalmat adunk neki
+    button.classList = "btn btn-warning"                    //bootsrtapp-el törtlés gomb állítása
     button.addEventListener('click', () => {
-        console.log(gyumolcsid);
+        console.log("id");
         let index = 0;
         let count = 0;
         gyumolcsok.forEach((gy) => {
-            if (gy.id == gyumolcsid) {
+            if (gy.id == id) {
                 index = count;
             }
             count++;
         });
         console.log(index);
         gyumolcsok.splice(index, 1);
-        tbody.textContent = "";
+        tbody.textContent = ""
         generateTbody();    //újragenerálja a táblát, a tbodyt
     });
     td.append(button);
     return td;
+}  
 
-}     
+saveButton.addEventListener('click', () => {
+    console.log('működik');
+    let name = nameInput.value;
+    let quantity = quantityInput.value;
+    let price = priceInput.value;
+    let gyumolcs = {
+        name: name, 
+        quantity: quantity,
+        price: price
+    }
+    console.log(gyumolcs);
+    gyumolcsok.push(gyumolcs);
+    tbody.textContent = "";
+    generateTbody();
+})
