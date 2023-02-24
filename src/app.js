@@ -19,14 +19,12 @@ const tbody = document.querySelector("#tbody");
 
 function generateTbody() {
     gyumolcsok.forEach((gyumolcs) => {      //itt vannak a gyümölcsök tulajdonságai
-        
-
         let tr = document.createElement('tr');
         let tdName = document.createElement('td');
         let tdQuantity = document.createElement('td');
         let tdPrice = document.createElement('td');
 
-        tdName.textContent = gyumolcs.name;     //ezek tulajdonságok textContet-ben
+        tdName.textContent = gyumolcs.name;     //ezek tulajdonságok textContent-ben
         tdQuantity.textContent = gyumolcs.quantity;
         tdPrice.textContent = gyumolcs.price;
 
@@ -44,22 +42,22 @@ function generateTdDelete(gyumolcsid) {       //törlés lesz,
     let td = document.createElement('td');   //generálás
     let button = document.createElement('button');
     button.textContent = "Törlés";      // tartalmat adunk neki
-    button.classList = "btn btn-warning"    //bootsrtapp-el törtlés gomb állítása
+    button.classList = "btn btn-warning";    //bootsrtapp-el törtlés gomb állítása
     button.addEventListener('click', () => {
         console.log(gyumolcsid);
         let index = 0;
         let count = 0;
         gyumolcsok.forEach((gy) => {
-            if (gy.gyumolcsid == id) {
+            if (gy.id == gyumolcsid) {
                 index = count;
             }
             count++;
         });
         console.log(index);
-        //gyumolcsok.splice(index, 1);
-        tbody.textContent =
+        gyumolcsok.splice(index, 1);
+        tbody.textContent = "";
         generateTbody();    //újragenerálja a táblát, a tbodyt
-    }
+    });
     td.append(button);
     return td;
 
