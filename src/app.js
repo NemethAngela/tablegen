@@ -112,6 +112,23 @@ function generateTdEdit(fruit) {
     return td;
 }  
 
+function createFruit(fruit) {   //meg kell hívni a függvényt
+    let endpoint = "fruits";
+    let url = host + endpoint;
+
+    fetch(url, {        //fetchnek meg kell mondani, hogy mi a metódus, a fetch visszaad egy promise-t
+        method: "post", 
+        body: JSON.stringify(fruit),     //Stringesíti a json.stringify
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result)
+    }); 
+}
+
 saveButton.addEventListener('click', () => {
     console.log('működik');
     let name = nameInput.value;
@@ -121,11 +138,13 @@ saveButton.addEventListener('click', () => {
         name: name, 
         quantity: quantity,
         price: price
-    }
+    };
+    createFruit(gyumolcs),
     console.log(gyumolcs);
-    gyumolcsok.push(gyumolcs);
+   // gyumolcsok.push(gyumolcs);        //itt nem kell, mert Rest Apiból veszi
     tbody.textContent = "";
-    generateTbody();
+    getFruits();
+    //generateTbody();
     clearFieldOnAddModel();
 });
 
