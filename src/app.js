@@ -8,12 +8,16 @@
 * Licenc: GNU GPL
 */
 
-const gyumolcsok = [    //objektumok meghatározása, kapcsos zárójel közé
-    {id: 1, name: 'szilva', quantity: 35, price: 8},
-    {id: 2, name: 'alma', quantity: 45, price: 8.3},
-    {id: 3, name: 'körte', quantity: 25, price: 9.5},
-    {id: 4, name: 'barack', quantity: 27, price: 12}
-];
+// const gyumolcsok = [    //objektumok meghatározása, kapcsos zárójel közé
+//     {id: 1, name: 'szilva', quantity: 35, price: 8},
+//     {id: 2, name: 'alma', quantity: 45, price: 8.3},
+//     {id: 3, name: 'körte', quantity: 25, price: 9.5},
+//     {id: 4, name: 'barack', quantity: 27, price: 12}
+// ];
+
+var gyumolcsok = [];
+const host = 'http://localhost:3000/';
+
 
 const tbody = document.querySelector("#tbody");
 const saveButton = document.querySelector("#saveButton");
@@ -27,6 +31,21 @@ const editquantityInput = document.querySelector("#editquantity");
 const editpriceInput = document.querySelector("#editprice");
 
 const saveEditButton = document.querySelector("#saveEditButton"); // kötés a html másik, szerkesztés gomb elemhez
+
+function getFruits() {
+    let endpoint = "fruits";
+    let url = host + endpoint;
+
+    fetch(url)
+    .then(response => response.json())
+    .then(result => { 
+        console.log(result)
+        gyumolcsok = result;
+        generateTbody();
+    });
+}
+
+getFruits();
 
 function generateTbody() {
     gyumolcsok.forEach((gyumolcs) => {      //itt vannak a gyümölcsök tulajdonságai
