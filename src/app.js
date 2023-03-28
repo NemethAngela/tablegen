@@ -8,16 +8,34 @@
 * Licenc: GNU GPL
 */
 
-// const gyumolcsok = [    //objektumok meghatározása, kapcsos zárójel közé
-//     {id: 1, name: 'szilva', quantity: 35, price: 8},
-//     {id: 2, name: 'alma', quantity: 45, price: 8.3},
-//     {id: 3, name: 'körte', quantity: 25, price: 9.5},
-//     {id: 4, name: 'barack', quantity: 27, price: 12}
-// ];
+// ************************************************************************************************************
+// Attól függően, hogy honnan szeretnénk venni az adatokat, különböző adatforrásokat használhatunk.
+//
+// 1; "bedrótozott" tömb (statikus)
+//      const gyumolcsok = [    //objektumok meghatározása, kapcsos zárójel közé
+//          {id: 1, name: 'szilva', quantity: 35, price: 8},
+//          {id: 2, name: 'alma', quantity: 45, price: 8.3},
+//          {id: 3, name: 'körte', quantity: 25, price: 9.5},
+//          {id: 4, name: 'barack', quantity: 27, price: 12}
+//      ];
+//    Hátrányok: minden app induláskor ugyanaz lesz, tehát nem tartja meg a legutóbbi állapotot. Csak tesztelésre jó.
+//
+// 2; Adatbázis (JSON-ben tárolunk a háttérben)
+//  a) json-server
+//      Ehhez a package-json config:    "json": "json-server --watch database.json"
+//      Indításhoz a Terminal-ban:      npm run json
+//  b) hai-server
+//      Ehhez a package.json config:    "api": "hai-server --watch database.json --port 3000"
+//      Indításhoz a Terminal-ban:      npm run api
+//
+// 3; Adatbázis (Valódi adatbázis, pl MS-SQL)
+//      még nem használtok ilyet
+// ************************************************************************************************************
+
+//   npm start
 
 var gyumolcsok = [];
 const host = 'http://localhost:3000/';
-
 
 const tbody = document.querySelector("#tbody");
 const saveButton = document.querySelector("#saveButton");
@@ -75,19 +93,20 @@ function generateTdDelete(id) {                             //törlés lesz,
     button.textContent = "Törlés";                          // tartalmat adunk neki
     button.classList = "btn btn-warning"                    //bootsrtapp-el törtlés gomb állítása
     button.addEventListener('click', () => {
-        console.log("id");
-        let index = 0;
-        let count = 0;
-        gyumolcsok.forEach((gy) => {
-            if (gy.id == id) {
-                index = count;
-            }
-            count++;
-        });
-        console.log(index);
-        gyumolcsok.splice(index, 1);
-        tbody.textContent = ""
-        generateTbody();    //újragenerálja a táblát, a tbodyt
+        console.log(id);
+        deleteFruit(id);
+        // let index = 0;
+        // let count = 0;
+        // gyumolcsok.forEach((gy) => {
+        //     if (gy.id == id) {
+        //         index = count;
+        //     }
+        //     count++;
+        // });
+        // console.log(index);
+        // gyumolcsok.splice(index, 1);
+        // tbody.textContent = ""
+        // generateTbody();    //újragenerálja a táblát, a tbodyt
     });
     td.append(button);
     return td;
@@ -129,6 +148,20 @@ function createFruit(fruit) {   //meg kell hívni a függvényt
     }); 
 }
 
+function deleteFruit(id) {  //törlés
+    let endpoint = "fruits";
+    let url = host + endpoint + "/" + id;
+    fetch (url, {
+        method: "Delete"
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        tbody.textContent = "";
+        generateTbody();
+    });
+}
+
 saveButton.addEventListener('click', () => {
     console.log('működik');
     let name = nameInput.value;
@@ -141,7 +174,7 @@ saveButton.addEventListener('click', () => {
     };
     createFruit(gyumolcs),
     console.log(gyumolcs);
-   // gyumolcsok.push(gyumolcs);        //itt nem kell, mert Rest Apiból veszi
+    // gyumolcsok.push(gyumolcs);        //itt nem kell, mert Rest Apiból veszi
     tbody.textContent = "";
     getFruits();
     //generateTbody();
@@ -150,9 +183,9 @@ saveButton.addEventListener('click', () => {
 
 
 function clearFieldOnAddModel() {       //így töröljük az add modal tartalmát
-nameInput.value = "";
-quantityInput.value = "";
-priceInput.value = "";
+    nameInput.value = "";
+    quantityInput.value = "";
+    priceInput.value = "";
 }
 
 saveEditButton.addEventListener('click', () => {

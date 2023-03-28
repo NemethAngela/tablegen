@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx lite-server",
-    "json": "json-server --watch database.json"
+    "api": "hai-server --watch database.json --port 3000"
   },
   "keywords": [],
   "author": "",
