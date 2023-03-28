@@ -8,7 +8,7 @@
 * Licenc: GNU GPL
 */
 
-// ************************************************************************************************************
+// * Itthoni comment ************************************************************************************************
 // Attól függően, hogy honnan szeretnénk venni az adatokat, különböző adatforrásokat használhatunk.
 //
 // 1; "bedrótozott" tömb (statikus)
