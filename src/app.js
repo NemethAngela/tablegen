@@ -8,32 +8,6 @@
 * Licenc: GNU GPL
 */
 
-// ************************************************************************************************************
-// Attól függően, hogy honnan szeretnénk venni az adatokat, különböző adatforrásokat használhatunk.
-//
-// 1; "bedrótozott" tömb (statikus)
-//      const gyumolcsok = [    //objektumok meghatározása, kapcsos zárójel közé
-//          {id: 1, name: 'szilva', quantity: 35, price: 8},
-//          {id: 2, name: 'alma', quantity: 45, price: 8.3},
-//          {id: 3, name: 'körte', quantity: 25, price: 9.5},
-//          {id: 4, name: 'barack', quantity: 27, price: 12}
-//      ];
-//    Hátrányok: minden app induláskor ugyanaz lesz, tehát nem tartja meg a legutóbbi állapotot. Csak tesztelésre jó.
-//
-// 2; Adatbázis (JSON-ben tárolunk a háttérben)
-//  a) json-server
-//      Ehhez a package-json config:    "json": "json-server --watch database.json"
-//      Indításhoz a Terminal-ban:      npm run json
-//  b) hai-server
-//      Ehhez a package.json config:    "api": "hai-server --watch database.json --port 3000"
-//      Indításhoz a Terminal-ban:      npm run api
-//
-// 3; Adatbázis (Valódi adatbázis, pl MS-SQL)
-//      még nem használtok ilyet
-// ************************************************************************************************************
-
-//   npm start
-
 var gyumolcsok = [];
 const host = 'http://localhost:3000/';
 
