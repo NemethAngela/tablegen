@@ -169,6 +169,14 @@ saveEditButton.addEventListener('click', () => {
     let quantity = editquantityInput.value;
     let price = editpriceInput.value;
 
+    let fruit = {       //létrehozás
+        id: id,     //itt meg kell egyezni az adatbázisban lévő kulcsokkal
+        name: name,
+        quantity: quantity,
+        price: price
+    }
+    updateFruit(fruit);
+
     gyumolcsok.forEach(gyumolcs => {    //fv. bejárása
         if (gyumolcs.id == id) {
             gyumolcs.name = name;
@@ -180,3 +188,21 @@ saveEditButton.addEventListener('click', () => {
     tbody.textContent = "";
     generateTbody();
 });
+
+function updateFruit(fruit) {
+    let endpoint = "fruits";
+    let url = host + endpoint + "/" + fruit.id; //update-nél szükség van id-e
+    let headers = {
+        "Content-Type": "application/json"
+    }
+    fetch(url, {
+        method: "put",
+        body: JSON.stringify(fruit),  //javaScript-ben nem stringesítünk aposztroffal, hanem így
+        headers: headers
+    })
+
+    .then(res => res.json())        //result lerövidítése
+    .then(res => {
+        console.log(res)
+    });
+}
